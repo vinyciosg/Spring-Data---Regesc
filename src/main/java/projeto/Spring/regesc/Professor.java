@@ -1,11 +1,10 @@
 package projeto.Spring.regesc;
 
 import jakarta.persistence.*;
-import org.hibernate.boot.registry.selector.spi.StrategyCreator;
 
 @Entity
 @Table(name = "professores")
-public class professor {
+public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,10 +16,10 @@ public class professor {
     private String prontuario;
 
     @Deprecated // para indicar que não será muito usada
-    public professor() {
+    public Professor() {
     }
 
-    public professor(String nome, String prontuario) {
+    public Professor(String nome, String prontuario) {
         this.nome = nome;
         this.prontuario = prontuario;
     }

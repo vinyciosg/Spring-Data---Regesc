@@ -2,8 +2,8 @@ package projeto.Spring.regesc.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import projeto.Spring.regesc.professor;
+import projeto.Spring.regesc.Professor;
 
 @Repository
-public interface professorRepository extends CrudRepository<professor, Long> {
+public interface professorRepository extends CrudRepository<Professor, Long> {
 }
