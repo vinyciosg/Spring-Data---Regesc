@@ -28,7 +28,6 @@ public class Professor {
         return id;
     }
 
-
     public String getNome() {
         return nome;
     }
