@@ -4,8 +4,6 @@ import org.springframework.stereotype.Service;
 import projeto.Spring.regesc.Professor;
 import projeto.Spring.regesc.repository.professorRepository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -23,12 +21,13 @@ public class CrudProfessorService {
 
     public void menu(Scanner scanner){
         Boolean istrue = true;
-
         while (istrue){
             System.out.println("\nQual ação voce quer executar?");
             System.out.println("0 - Voltar ao menu anterior");
             System.out.println("1 - Cadastrar um novo professor");
             System.out.println("2 - Atualizar um professor");
+            System.out.println("3 - Visualizar todos os professores");
+            System.out.println("4 - Deletar um professores");
             int opcao = scanner.nextInt();
 
             switch (opcao){
@@ -38,6 +37,12 @@ public class CrudProfessorService {
                     break;
                 case 2:
                     this.atualizar(scanner);
+                    break;
+                case 3:
+                    this.visualizar();
+                    break;
+                case 4:
+                    this.deletar(scanner);
                     break;
                 default:
                     istrue = false;
@@ -61,9 +66,10 @@ public class CrudProfessorService {
         System.out.println("Digite o ID do professor a ser atualizado: ");
         Long id = scanner.nextLong();
 
-        Optional<Professor> optional = this.professorRepository.findById(id);
+        // Classe container para lidar com valores que podem ser nulos
+        Optional<Professor> optional = this.professorRepository.findById(id); // findByID Metodo de busca uma entidade pelo seu ID
 
-        if (optional.isPresent()){
+        if (optional.isPresent()){ // optional.isPresente() verifica se o Optional contém um valor nao nulo
 
 
             System.out.print("Digite o nome do professor: ");
@@ -72,7 +78,7 @@ public class CrudProfessorService {
             System.out.print("Digite o prontuario do professor: ");
             String prontuario = scanner.next();
 
-            Professor professor = optional.get();
+            Professor professor = optional.get(); // optional.get() Recupera o objeto professor contido no Optional // atualiza os atributos
             professor.setNome(nome);
             professor.setProntuario(prontuario);
 
@@ -81,6 +87,34 @@ public class CrudProfessorService {
         else {
         System.out.println("O id do professor informado " + id + " é invalido!!");
         }
+    }
+
+    private void visualizar(){
+        Iterable<Professor> professores = this.professorRepository.findAll(); // findAll retorna todos os registros da tabela professor
+        // Alternativa 1
+        for(Professor professor : professores){
+            System.out.println(professor);
+        }
+
+        // Alternativa 2
+        /*professores.forEach(professor -> { // lambda(função anonima) executa uma ação para cada elemento da coleção
+            System.out.println(professor);
+        });
+
+        Alternativa 3
+        professores.forEach(System.out::println);*/
+
+        System.out.println();
+    }
+
+    private void deletar(Scanner scanner){
+        System.out.println("Digite o ID do professor pra deletar: ");
+        Long id = scanner.nextLong();
+        this.professorRepository.deleteById(id); // lancará um exception se não achar o ID passado na tabela
+        System.out.println( "Professor deletado!\n");
+
+
+
     }
 
 }

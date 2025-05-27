@@ -9,7 +9,7 @@ import projeto.Spring.regesc.repository.professorRepository;
 import java.util.Scanner;
 
 @SpringBootApplication
-public class RegescApplication implements CommandLineRunner {
+public class RegescApplication implements CommandLineRunner { // é uma interface no Spring Boot que permite executar código após o contexto da aplicação ser carregado, mas antes da aplicação começar a rodar
 	private CrudProfessorService professorService;
 
 	// objetos passados por parametro são injetados automaticamente pelo Spring
