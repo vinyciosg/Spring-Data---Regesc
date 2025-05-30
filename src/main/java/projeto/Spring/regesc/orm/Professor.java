@@ -1,9 +1,12 @@
-package projeto.Spring.regesc;
+package projeto.Spring.regesc.orm;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "professores")
+@Table(name = "tb_professores")
 public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +17,10 @@ public class Professor {
 
     @Column(nullable = false, unique = true)
     private String prontuario;
+
+    @OneToMany(mappedBy = "professor" ) // está sendo mapeada pelo atributo professor
+    private List<Disciplina> disciplinas = new ArrayList<>();
+
 
     @Deprecated // para indicar que não será muito usada
     public Professor() {

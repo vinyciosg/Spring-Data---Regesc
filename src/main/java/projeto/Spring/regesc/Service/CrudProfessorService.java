@@ -1,7 +1,7 @@
 package projeto.Spring.regesc.Service;
 
 import org.springframework.stereotype.Service;
-import projeto.Spring.regesc.Professor;
+import projeto.Spring.regesc.orm.Professor;
 import projeto.Spring.regesc.repository.professorRepository;
 
 import java.util.Optional;
