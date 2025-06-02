@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import projeto.Spring.regesc.orm.Professor;
 
 @Repository
-public interface professorRepository extends CrudRepository<Professor, Long> {
+public interface ProfessorRepository extends CrudRepository<Professor, Long> {
 
 }

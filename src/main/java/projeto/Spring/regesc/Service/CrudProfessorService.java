@@ -2,7 +2,7 @@ package projeto.Spring.regesc.Service;
 
 import org.springframework.stereotype.Service;
 import projeto.Spring.regesc.orm.Professor;
-import projeto.Spring.regesc.repository.professorRepository;
+import projeto.Spring.regesc.repository.ProfessorRepository;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -11,11 +11,11 @@ import java.util.Scanner;
 public class CrudProfessorService {
 
     // dependencia da classe CrudProfessorService
-    private professorRepository professorRepository;
+    private ProfessorRepository professorRepository;
 
     // o Spring automaticamente cria um objeto com a interface professorRepository
     // e injeta para nós no construtor na classe atual ==> Injeção de independência
-    public CrudProfessorService(professorRepository professorRepository){
+    public CrudProfessorService(ProfessorRepository professorRepository){
         this.professorRepository = professorRepository;
     }
 
@@ -66,11 +66,10 @@ public class CrudProfessorService {
         System.out.println("Digite o ID do professor a ser atualizado: ");
         Long id = scanner.nextLong();
 
-        // Classe container para lidar com valores que podem ser nulos
-        Optional<Professor> optional = this.professorRepository.findById(id); // findByID Metodo de busca uma entidade pelo seu ID
+        // Classe container para lidar com valores que podem ser nulos // verifica se existe algo la dentro = Professor
+        Optional<Professor> optional = this.professorRepository.findById(id); // findByID Metodo de busca de entidade pelo seu ID
 
         if (optional.isPresent()){ // optional.isPresente() verifica se o Optional contém um valor nao nulo
-
 
             System.out.print("Digite o nome do professor: ");
             String nome = scanner.next(); // lê a próxima String até achar um enter ou um espaco
@@ -85,11 +84,12 @@ public class CrudProfessorService {
             professorRepository.save(professor);// atualiza (perciste) o objeto/ registro/ tabela no BD
         }
         else {
-        System.out.println("O id do professor informado " + id + " é invalido!!");
+             System.out.println("O id do professor informado " + id + " é invalido!!");
         }
     }
 
     private void visualizar(){
+
         Iterable<Professor> professores = this.professorRepository.findAll(); // findAll retorna todos os registros da tabela professor
         // Alternativa 1
         for(Professor professor : professores){

@@ -21,7 +21,6 @@ public class Professor {
     @OneToMany(mappedBy = "professor" ) // está sendo mapeada pelo atributo professor
     private List<Disciplina> disciplinas = new ArrayList<>();
 
-
     @Deprecated // para indicar que não será muito usada
     public Professor() {
     }

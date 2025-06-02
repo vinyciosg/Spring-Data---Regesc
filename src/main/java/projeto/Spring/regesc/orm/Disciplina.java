@@ -21,6 +21,12 @@ public class Disciplina {
     @Deprecated // não será utilizado
     public Disciplina() {}
 
+    public Disciplina(String nome, int semestre, Professor professor) {
+        this.nome = nome;
+        this.semestre = semestre;
+        this.professor = professor;
+    }
+
     public Disciplina(String nome, int semestre) {
         this.nome = nome;
         this.semestre = semestre;
@@ -46,12 +52,21 @@ public class Disciplina {
         this.semestre = semestre;
     }
 
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
     @Override
     public String toString() {
         return "Disciplina{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", semestre=" + semestre +
+                ", professor=" + professor +
                 '}';
     }
 }
