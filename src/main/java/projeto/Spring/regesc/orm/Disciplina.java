@@ -13,7 +13,7 @@ public class Disciplina {
     private String nome;
     private int semestre;
 
-    @ManyToOne // Muitos para um
+    @ManyToOne(fetch = FetchType.EAGER) // Muitos para um
     @JoinColumn(name = "professor_id" , nullable = true) // Coluna de junção - por padrão ele pega o ID
     private Professor professor;
 

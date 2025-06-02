@@ -1,9 +1,12 @@
 package projeto.Spring.regesc.Service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import projeto.Spring.regesc.orm.Disciplina;
 import projeto.Spring.regesc.orm.Professor;
 import projeto.Spring.regesc.repository.ProfessorRepository;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -19,6 +22,7 @@ public class CrudProfessorService {
         this.professorRepository = professorRepository;
     }
 
+    @Transactional
     public void menu(Scanner scanner){
         Boolean istrue = true;
         while (istrue){
@@ -28,6 +32,7 @@ public class CrudProfessorService {
             System.out.println("2 - Atualizar um professor");
             System.out.println("3 - Visualizar todos os professores");
             System.out.println("4 - Deletar um professores");
+            System.out.println("5 - Vizualizar um professor");
             int opcao = scanner.nextInt();
 
             switch (opcao){
@@ -44,6 +49,8 @@ public class CrudProfessorService {
                 case 4:
                     this.deletar(scanner);
                     break;
+                case 5:
+                    this.visualizarProfessor(scanner);
                 default:
                     istrue = false;
                         break;
@@ -112,9 +119,32 @@ public class CrudProfessorService {
         Long id = scanner.nextLong();
         this.professorRepository.deleteById(id); // lancará um exception se não achar o ID passado na tabela
         System.out.println( "Professor deletado!\n");
+    }
 
+        @Transactional // faz uma transação com o banco de Dados
+    private void visualizarProfessor(Scanner scanner){
+        System.out.print("ID do professor: ");
+        Long id = scanner.nextLong();
 
+        Optional<Professor> optional = this.professorRepository.findById(id);
+        if (optional.isPresent()){
+            Professor professor = optional.get();
 
+            System.out.println("Professor [");
+            System.out.println("ID: " + professor.getId());
+            System.out.println("Nome: " + professor.getNome());
+            System.out.println("Prontuario: " + professor.getProntuario());
+            System.out.println();
+
+            System.out.println("Disciplinas [");
+            for (Disciplina disciplina : professor.getDisciplinas()){
+                System.out.println("ID: " + disciplina.getId());
+                System.out.println("Nome: " + disciplina.getNome());
+                System.out.println("Semestr: " + disciplina.getSemestre());
+                System.out.println();
+            }
+            System.out.println("]\n}");
+        }
     }
 
 }

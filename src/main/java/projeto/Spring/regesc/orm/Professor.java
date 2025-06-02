@@ -18,7 +18,8 @@ public class Professor {
     @Column(nullable = false, unique = true)
     private String prontuario;
 
-    @OneToMany(mappedBy = "professor" ) // está sendo mapeada pelo atributo professor
+    // está sendo mapeada pelo atributo professor
+    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY) // // fetch = esta fazendo uma busca EAGER: tras os dados / LAZY: é preguiçoso não tras os dados por padrão
     private List<Disciplina> disciplinas = new ArrayList<>();
 
     @Deprecated // para indicar que não será muito usada
@@ -30,24 +31,22 @@ public class Professor {
         this.prontuario = prontuario;
     }
 
-    public Long getId() {
-        return id;
+    public Long getId() {return id;}
+
+    public String getNome() {return nome;}
+
+    public void setNome(String nome) {this.nome = nome;}
+
+    public String getProntuario() {return prontuario;}
+
+    public void setProntuario(String prontuario) {this.prontuario = prontuario;}
+
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getProntuario() {
-        return prontuario;
-    }
-
-    public void setProntuario(String prontuario) {
-        this.prontuario = prontuario;
+    public void setDisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
     }
 
     @Override
