@@ -2,6 +2,10 @@ package projeto.Spring.regesc.orm;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_disciplinas")
 public class Disciplina {
@@ -17,6 +21,11 @@ public class Disciplina {
     @JoinColumn(name = "professor_id" , nullable = true) // Coluna de junção - por padrão ele pega o ID
     private Professor professor;
 
+    @ManyToMany
+    @JoinTable(name = "tb_disciplinas_alunos",
+            joinColumns = @JoinColumn(name = "disciplina_fk"),
+            inverseJoinColumns = @JoinColumn(name = "aluno_fk"))
+    private Set<Aluno> alunos;
 
     @Deprecated // não será utilizado
     public Disciplina() {}

@@ -51,6 +51,7 @@ public class CrudProfessorService {
                     break;
                 case 5:
                     this.visualizarProfessor(scanner);
+                    break;
                 default:
                     istrue = false;
                         break;
@@ -121,7 +122,7 @@ public class CrudProfessorService {
         System.out.println( "Professor deletado!\n");
     }
 
-        @Transactional // faz uma transação com o banco de Dados
+    @Transactional // faz uma transação com o banco de Dados
     private void visualizarProfessor(Scanner scanner){
         System.out.print("ID do professor: ");
         Long id = scanner.nextLong();
@@ -146,5 +147,4 @@ public class CrudProfessorService {
             System.out.println("]\n}");
         }
     }
-
 }

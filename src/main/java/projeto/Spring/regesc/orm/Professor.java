@@ -22,7 +22,7 @@ public class Professor {
     @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY) // // fetch = esta fazendo uma busca EAGER: tras os dados / LAZY: é preguiçoso não tras os dados por padrão
     private List<Disciplina> disciplinas = new ArrayList<>();
 
-    @Deprecated // para indicar que não será muito usada
+    @Deprecated // para indicar que não será muito usadax
     public Professor() {
     }
 
@@ -47,6 +47,14 @@ public class Professor {
 
     public void setDisciplinas(List<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
+    }
+
+    @PreRemove
+    public void atualizarDisciplina(){
+        System.out.println("**** atualizarDisciplinasOnRemove ****");
+        for (Disciplina disciplina : this.getDisciplinas()){
+            disciplina.setProfessor(null);
+        }
     }
 
     @Override
