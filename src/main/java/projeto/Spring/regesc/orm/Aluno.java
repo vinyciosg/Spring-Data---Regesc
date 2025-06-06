@@ -2,7 +2,6 @@ package projeto.Spring.regesc.orm;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,7 +19,7 @@ public class Aluno {
     private Set<Disciplina> disciplinas;
 
     @Deprecated
-    public Aluno() {
+    public Aluno(String nome, int idade) {
     }
 
     public Aluno(String nome, int idade, Set<Disciplina> disciplinas) {
@@ -29,29 +28,17 @@ public class Aluno {
         this.disciplinas = disciplinas;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() {return id;}
 
-    public String getNome() {
-        return nome;
-    }
+    public String getNome() {return nome;}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public void setNome(String nome) {this.nome = nome;}
 
-    public int getIdade() {
-        return idade;
-    }
+    public int getIdade() {return idade;}
 
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
+    public void setIdade(int idade) {this.idade = idade;}
 
-    public Set<Disciplina> getDisciplinas() {
-        return disciplinas;
-    }
+    public Set<Disciplina> getDisciplinas() {return disciplinas;}
 
     public void setDisciplinas(Set<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
@@ -63,7 +50,6 @@ public class Aluno {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", idade=" + idade +
-                ", disciplinas=" + disciplinas +
                 '}';
     }
 }

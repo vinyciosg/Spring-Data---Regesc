@@ -21,7 +21,7 @@ public class Disciplina {
     @JoinColumn(name = "professor_id" , nullable = true) // Coluna de junção - por padrão ele pega o ID
     private Professor professor;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_disciplinas_alunos",
             joinColumns = @JoinColumn(name = "disciplina_fk"),
             inverseJoinColumns = @JoinColumn(name = "aluno_fk"))
@@ -69,6 +69,12 @@ public class Disciplina {
         this.professor = professor;
     }
 
+    public Set<Aluno> getAlunos() {return alunos;}
+
+    public void setAlunos(Set<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
     @Override
     public String toString() {
         return "Disciplina{" +
@@ -76,6 +82,8 @@ public class Disciplina {
                 ", nome='" + nome + '\'' +
                 ", semestre=" + semestre +
                 ", professor=" + professor +
+                ", alunos=" + alunos +
                 '}';
     }
 }
+
