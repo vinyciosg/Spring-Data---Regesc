@@ -1,23 +1,23 @@
 package projeto.Spring.regesc.Service;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import projeto.Spring.regesc.orm.Aluno;
+import projeto.Spring.regesc.orm.Disciplina;
 import projeto.Spring.regesc.repository.AlunoRepository;
 
 import java.util.Optional;
 import java.util.Scanner;
 
 @Service
-public class CrudAlunosSerice {
-
+public class CrudAlunosService {
     private AlunoRepository alunoRepository;
 
-    public CrudAlunosSerice(AlunoRepository alunoRepository){
+    public CrudAlunosService(AlunoRepository alunoRepository){
         this.alunoRepository = alunoRepository;
     }
 
+    @Transactional
     public void menu(Scanner scanner){
         Boolean istrue = true;
         while (istrue){
@@ -39,10 +39,13 @@ public class CrudAlunosSerice {
                     this.atualizarAluno(scanner);
                     break;
                 case 3:
-                   // this.visualizarAlunos;
+                    this.visualizarAlunos();
                     break;
                 case 4:
-                    //this.deletarAluno(scanner);
+                    this.deletarAluno(scanner);
+                    break;
+                case 5:
+                    this.visualizarUmAluno(scanner);
                 default:
                     istrue = false;
                     break;
@@ -58,6 +61,8 @@ public class CrudAlunosSerice {
         int idade = scanner.nextInt();
 
         Aluno aluno = new Aluno(nome,idade);
+        aluno.setNome(nome);
+        aluno.setIdade(idade);
         this.alunoRepository.save(aluno);
         System.out.println("Aluno salvo!!");
     }
@@ -85,8 +90,42 @@ public class CrudAlunosSerice {
     }
 
     private void visualizarAlunos(){
-
+        Iterable<Aluno> alunos = this.alunoRepository.findAll();
+        for (Aluno aluno : alunos){
+            System.out.println(aluno);
+        }
     }
 
+    private void deletarAluno(Scanner scanner){
+        System.out.print("ID do professor para deletar: ");
+        Long id = scanner.nextLong();
+        this.alunoRepository.deleteById(id);
+        System.out.println("Aluno deletado!");
+    }
+
+    @Transactional
+    private void visualizarUmAluno(Scanner scanner){
+        System.out.print("ID do aluno: ");
+        Long id = scanner.nextLong();
+
+        Optional<Aluno> optional = this.alunoRepository.findById(id);
+        if (optional.isPresent()){
+            Aluno aluno = optional.get();
+            System.out.print("ID: " + aluno.getId());
+            System.out.print("Nome: " + aluno.getNome());
+            System.out.print("Idade: " + aluno.getIdade());
+
+            if (aluno.getDisciplinas() != null) {
+                for (Disciplina disciplina : aluno.getDisciplinas()){
+                    System.out.println("\t- Disciplina: " + disciplina.getNome());
+                    System.out.println("\t- Semestre: " + disciplina.getSemestre());
+                    System.out.println();
+                }
+            }
+        }
+        else {
+            System.out.println("ID invalido!!");
+        }
+    }
 
 }

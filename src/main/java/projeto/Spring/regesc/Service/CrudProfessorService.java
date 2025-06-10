@@ -1,6 +1,7 @@
 package projeto.Spring.regesc.Service;
 
 import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import projeto.Spring.regesc.orm.Disciplina;
 import projeto.Spring.regesc.orm.Professor;
@@ -66,6 +67,8 @@ public class CrudProfessorService {
         String prontuario = scanner.next();
 
         Professor professor = new Professor(nome, prontuario);
+        professor.setNome(nome);
+        professor.setProntuario(prontuario);
         this.professorRepository.save(professor);
         System.out.println("Professor salvo no banco!!\n ");
     }
