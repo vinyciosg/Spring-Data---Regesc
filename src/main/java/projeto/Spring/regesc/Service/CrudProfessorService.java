@@ -73,6 +73,7 @@ public class CrudProfessorService {
         System.out.println("Professor salvo no banco!!\n ");
     }
 
+
     private void atualizar(Scanner scanner){
         System.out.println("Digite o ID do professor a ser atualizado: ");
         Long id = scanner.nextLong();

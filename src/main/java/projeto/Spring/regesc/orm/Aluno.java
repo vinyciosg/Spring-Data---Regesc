@@ -13,16 +13,17 @@ public class Aluno {
     private Long id;
     @Column(nullable = false)
     private String nome;
-    private int idade;
+
+    private Integer idade;
 
     @ManyToMany(mappedBy = "alunos")
     private Set<Disciplina> disciplinas;
 
     @Deprecated
-    public Aluno(String nome, int idade) {
+    public Aluno() {
     }
 
-    public Aluno(String nome, int idade, Set<Disciplina> disciplinas) {
+    public Aluno(String nome, Integer idade, Set<Disciplina> disciplinas) {
         this.nome = nome;
         this.idade = idade;
         this.disciplinas = disciplinas;
@@ -34,9 +35,9 @@ public class Aluno {
 
     public void setNome(String nome) {this.nome = nome;}
 
-    public int getIdade() {return idade;}
+    public Integer getIdade() {return idade;}
 
-    public void setIdade(int idade) {this.idade = idade;}
+    public void setIdade(Integer idade) {this.idade = idade;}
 
     public Set<Disciplina> getDisciplinas() {return disciplinas;}
 

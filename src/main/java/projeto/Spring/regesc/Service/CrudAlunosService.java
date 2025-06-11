@@ -60,7 +60,7 @@ public class CrudAlunosService {
         System.out.print("Idade: ");
         int idade = scanner.nextInt();
 
-        Aluno aluno = new Aluno(nome,idade);
+        Aluno aluno = new Aluno();
         aluno.setNome(nome);
         aluno.setIdade(idade);
         this.alunoRepository.save(aluno);
@@ -97,7 +97,7 @@ public class CrudAlunosService {
     }
 
     private void deletarAluno(Scanner scanner){
-        System.out.print("ID do professor para deletar: ");
+        System.out.print("ID do aluno para deletar: ");
         Long id = scanner.nextLong();
         this.alunoRepository.deleteById(id);
         System.out.println("Aluno deletado!");
@@ -111,9 +111,9 @@ public class CrudAlunosService {
         Optional<Aluno> optional = this.alunoRepository.findById(id);
         if (optional.isPresent()){
             Aluno aluno = optional.get();
-            System.out.print("ID: " + aluno.getId());
-            System.out.print("Nome: " + aluno.getNome());
-            System.out.print("Idade: " + aluno.getIdade());
+            System.out.println("ID: " + aluno.getId());
+            System.out.println("Nome: " + aluno.getNome());
+            System.out.println("Idade: " + aluno.getIdade());
 
             if (aluno.getDisciplinas() != null) {
                 for (Disciplina disciplina : aluno.getDisciplinas()){
