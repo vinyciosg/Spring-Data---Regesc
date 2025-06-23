@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import projeto.Spring.regesc.Service.CrudAlunosService;
 import projeto.Spring.regesc.Service.CrudDisciplinaService;
 import projeto.Spring.regesc.Service.CrudProfessorService;
+import projeto.Spring.regesc.Service.RelatorioServiceGeral;
 
 import java.util.Scanner;
 
@@ -14,13 +15,16 @@ public class RegescApplication implements CommandLineRunner { // é uma interfac
 	private CrudProfessorService professorService;
 	private CrudDisciplinaService disciplinaService;
 	private CrudAlunosService alunosService;
+	private RelatorioServiceGeral relatorioServiceGeral;
 
 	// objetos passados por parametro são injetados automaticamente pelo Sp1ring
 	// porque classes possuem a anotação @Service
-	public RegescApplication(CrudProfessorService professorService, CrudDisciplinaService disciplinaService, CrudAlunosService alunosService){
+	public RegescApplication(CrudProfessorService professorService, CrudDisciplinaService disciplinaService,
+							 CrudAlunosService alunosService, RelatorioServiceGeral relatorioServiceGeral){
 		this.professorService = professorService;
 		this.disciplinaService = disciplinaService;
 		this.alunosService = alunosService;
+		this.relatorioServiceGeral = relatorioServiceGeral;
 	}
 
 	public static void main(String[] args) {
@@ -33,11 +37,12 @@ public class RegescApplication implements CommandLineRunner { // é uma interfac
 		Scanner box = new Scanner(System.in);
 
 		while (isTrue){
-			System.out.println("Qual entidadade voce deseja interagir?");
+			System.out.println("O que deseja fazer/interagir?");
 			System.out.println("0 - sair");
 			System.out.println("1 - professor");
 			System.out.println("2 - disciplina");
 			System.out.println("3 - aluno");
+			System.out.println("4 - Relatorio");
 			int opcao = box.nextInt();
 
 			switch (opcao){
@@ -49,6 +54,9 @@ public class RegescApplication implements CommandLineRunner { // é uma interfac
 					break;
 				case 3:
 					this.alunosService.menu(box);
+					break;
+				case 4:
+					this.relatorioServiceGeral.menu(box);
 					break;
 				default:
 					isTrue = false;
